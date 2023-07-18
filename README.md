@@ -29,131 +29,17 @@ Repositório para executar trabalho do Grupo 02 referente a disciplina INF325 - 
 - [Stencila](https://stenci.la/)
 
 The list below contains the known binderhub instances.
-- [mybinder.org](gke.mybinder.org)
 - [binder.gesis.org](binder.gesis.org)
-- [binder.pangeo.io](binder.pangeo.io)
 
 The list below provides the badges and the hyperlinks for launching one of the specific interfaces in one of the binderhub instances.
 
-
-
-
-#### JupyterLab 
-  
-  - [![launch @ gke.mybinder.org][badge-jupyterlab-gke-mybinder-org]](https://gke.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=lab)
-
-  - [![launch @ ovh.mybinder.org][badge-jupyterlab-ovh-mybinder-org]](https://ovh.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=lab)
-
-  - [![launch @ turing.mybinder.org][badge-jupyterlab-turing-mybinder-org]](https://turing.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=lab)
-
-  - [![launch @ gesis.org][badge-jupyterlab-gesis-org]](https://notebooks.gesis.org/binder/v2/gh/thedatasociety/lab-cassandra/master?urlpath=lab)
-
-  - [![launch @ pangeo.io][badge-jupyterlab-pangeo-io]](https://binder.pangeo.io/v2/gh/thedatasociety/lab-cassandra/master?urlpath=lab)
-
-
 #### Jupyter 
   
-  - [![launch @ gke.mybinder.org][badge-jupyter-gke-mybinder-org]](https://gke.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=tree)
-
-  - [![launch @ ovh.mybinder.org][badge-jupyter-ovh-mybinder-org]](https://ovh.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=tree)
-
-  - [![launch @ turing.mybinder.org][badge-jupyter-turing-mybinder-org]](https://turing.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=tree)
-
-  - [![launch @ gesis.org][badge-jupyter-gesis-org]](https://notebooks.gesis.org/binder/v2/gh/thedatasociety/lab-cassandra/master?urlpath=tree)
-
-  - [![launch @ pangeo.org][badge-jupyter-pangeo-io]](https://binder.pangeo.io/v2/gh/thedatasociety/lab-cassandra/master?urlpath=tree)
-
-
-      
-#### VSCode 
-  
-  - [![launch @ gke.mybinder.org][badge-vscode-gke-mybinder-org]](https://gke.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=vscode/)
-
-  - [![launch @ ovh.mybinder.org][badge-vscode-ovh-mybinder-org]](https://ovh.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=vscode/)
-
-  - [![launch @ turing.mybinder.org][badge-vscode-turing-mybinder-org]](https://turing.mybinder.org/v2/gh/thedatasociety/lab-cassandra/master?urlpath=vscode/)
-
-  - [![launch @ gesis.org][badge-vscode-gesis-org]](https://notebooks.gesis.org/binder/v2/gh/thedatasociety/lab-cassandra/master?urlpath=vscode/)
-
-  - [![launch @ pangeo.io][badge-vscode-pangeo-io]](https://binder.pangeo.io/v2/gh/thedatasociety/lab-cassandra/master?urlpath=vscode/)
-
-
-
-
-### Launch this laboratory locally using Docker
-
-We offer here two options for launching this lab locally: via our Docker image or via repo2docker.
-Before firing up your container, make sure your local user is in the `docker` group. Please refer to this Docker [documentation](https://docs.docker.com/install/linux/linux-postinstall/) for more details. **It is strongly advised to not to run the container as root**. 
-
-#### Via our Docker image
-
-You can run a containerized instance of this lab from [our own Docker image](https://hub.docker.com/r/thedatasociety/lab-cassandra/). Please refer to this [link](https://docs.docker.com/install/) for installing Docker. Then, try:
-  
-```bash
-docker run -it -p 8888:8888 thedatasociety/lab-cassandra \
-           jupyter lab --ip 0.0.0.0 --NotebookApp.token='dstoken1234567' 
-```
-
-Alternatively, you can map you local home folder into the container:
-
-```bash
-docker run -it -p 8888:8888  \
-           -v $(echo ~):/jupyter/data/local-home \
-           thedatasociety/lab-cassandra \
-           jupyter lab --ip 0.0.0.0 --NotebookApp.token='dstoken1234567'
-```
-
-The *Dockerfile* used to build the image can be found [here](https://github.com/thedatasociety/lab-cassandra/tree/master/resources/docker/).
-
-**Please read the section** [Accessing your Docker container](#accessing-your-docker-container) for more details about running/accessing your container.
-
-
-#### Via [repo2docker](https://github.com/jupyter/repo2docker)
-
-You can also launch this laboratory locally using [Docker](https://docker.com) and [repo2docker](https://github.com/jupyter/repo2docker). Please refer to this [link](https://docs.docker.com/install/) for installing Docker and this [link](https://repo2docker.readthedocs.io/en/latest/install.html#) for installing repo2docker. Use the commands below to **build** a Docker image and start a container from it. 
-
-
-```bash
-repo2docker -p 8888:8888 \
-            -v $(echo ~):$(echo ~)/local-home \
-            https://github.com/thedatasociety/lab-cassandra \
-            jupyter lab --ip 0.0.0.0 --NotebookApp.token='dstoken1234567'
-
-```
-
-**Please read the section** [Accessing your Docker container](#accessing-your-docker-container) for details about running/accessing your container.
-
-#### Accessing your Docker container
-
-Both options above will launch a container on port `8888`. They will also create a Docker volume that maps the user's home into the container (in the container, look for the `local-home` folder).
-
-
-Please also be aware that the `--ip 0.0.0.0` directive will start a sever which **will accept connections from any ip**. For security purposes the `--NotebookApp.token='dstoken1234567'` directive forces the need of a token for accessing any interface. Use the `dstoken1234567` to login or feel free to set a stronger token.
-
-Each interface will be available at a specific path, as follows:
-
-* **Jupyter**: [http://0.0.0.0:8888/tree](http://0.0.0.0:8888/tree) 
-
-* **JupyterLab**: [http://0.0.0.0:8888/lab](http://0.0.0.0:8888/lab)  
-
-* **Nteract**: [http://0.0.0.0:8888/nteract](http://0.0.0.0:8888/nteract)  
-
-* **Stencila**:[http://0.0.0.0:8888/stencila](http://0.0.0.0:8888/stencila) 
-
-* **Rstudio**: [http://0.0.0.0:8888/rstudio](http://0.0.0.0:8888/rstudio)
-
-* **Shiny**: [http://0.0.0.0:8888/shiny](http://0.0.0.0:8888/shiny)  
-
-See the [repo2docker](https://github.com/jupyter/repo2docker) documentation for more details [regarding the use of multiple interfaces](https://mybinder.readthedocs.io/en/latest/howto/user_interface.html).
-
-
+  - [![launch @ gesis.org][badge-jupyter-gesis-org]](https://notebooks.gesis.org/binder/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
 
 ## Contributing
 
 ## License
-
-
-
 
 
 <!-- icons -->
