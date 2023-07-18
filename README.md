@@ -35,8 +35,17 @@ The list below provides the badges and the hyperlinks for launching one of the s
 
 #### Jupyter 
   
+  - [![launch @ gke.mybinder.org][badge-jupyter-gke-mybinder-org]](https://gke.mybinder.org/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
+
+  - [![launch @ ovh.mybinder.org][badge-jupyter-ovh-mybinder-org]](https://ovh.mybinder.org/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
+
+  - [![launch @ turing.mybinder.org][badge-jupyter-turing-mybinder-org]](https://turing.mybinder.org/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
+
   - [![launch @ gesis.org][badge-jupyter-gesis-org]](https://notebooks.gesis.org/binder/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
 
+  - [![launch @ pangeo.org][badge-jupyter-pangeo-io]](https://binder.pangeo.io/v2/gh/bpauloec/INF325-Grupo02-Trabalho/main)
+
+ 
 ## Contributing
 
 ## License
