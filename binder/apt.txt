@@ -1,0 +1,11 @@
+htop
+vim
+curl
+wget
+net-tools
+
+
+#cassandra related
+openjdk-8-jdk
+build-essential 
+gdb
