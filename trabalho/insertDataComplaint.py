@@ -62,20 +62,45 @@ def gerar_reply():
     content = gerar_descricao()
     return (reply_date, content)
 
-# Função para inserir 300 registros aleatórios na tabela
-def inserir_dados_aleatorios(session, quantidade):
-    for _ in range(quantidade):
+# Função para gerar 300 registros aleatórios na tabela
+def gerar_registros_aleatorios():
+    registros = []
+    for _ in range(300):
         ticket_id = gerar_uuid()
         creation_date = gerar_data_hora()
         description = gerar_descricao()
+        order_id = gerar_uuid()
+        product_id = gerar_uuid()
         replies = {gerar_data_hora(): gerar_descricao() for _ in range(random.randint(1, 5))}
+        seller_id = gerar_uuid()
         status = gerar_status()
         title = gerar_titulo()
         type_ = gerar_tipo()
         user_id = gerar_uuid()
 
-        query = f"INSERT INTO {nome_tabela} (ticket_id, creation_date, description, replies, status, title, type, user_id) " \
-                f"VALUES ({ticket_id}, '{creation_date}', '{description}', {replies}, '{status}', '{title}', '{type_}', {user_id});"
+        registro = {
+            'ticket_id': ticket_id,
+            'creation_date': creation_date,
+            'description': description,
+            'order_id': order_id,
+            'product_id': product_id,
+            'replies': replies,
+            'seller_id': seller_id,
+            'status': status,
+            'title': title,
+            'type': type_,
+            'user_id': user_id
+        }
+
+        registros.append(registro)
+
+    return registros
+
+# Função para inserir registros na tabela
+def inserir_registros(session, registros):
+    for registro in registros:
+        query = f"INSERT INTO {nome_tabela} (ticket_id, creation_date, description, order_id, product_id, replies, seller_id, status, title, type, user_id) " \
+                f"VALUES ({registro['ticket_id']}, '{registro['creation_date']}', '{registro['description']}', {registro['order_id']}, {registro['product_id']}, {registro['replies']}, {registro['seller_id']}, '{registro['status']}', '{registro['title']}', '{registro['type']}', {registro['user_id']});"
 
         executar_query(session, query)
 
@@ -85,11 +110,11 @@ if __name__ == "__main__":
     cluster, session = conectar_cassandra()
 
     if session:
-        # Defina a quantidade de dados aleatórios que você deseja gerar e inserir
-        quantidade_dados_aleatorios = 300
+        # Gerar registros aleatórios
+        registros_aleatorios = gerar_registros_aleatorios()
 
-        # Inserir dados aleatórios na tabela
-        inserir_dados_aleatorios(session, quantidade_dados_aleatorios)
+        # Inserir registros na tabela
+        inserir_registros(session, registros_aleatorios)
 
         # Fechar a conexão
         cluster.shutdown()
