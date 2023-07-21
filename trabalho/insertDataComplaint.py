@@ -62,17 +62,29 @@ def gerar_reply():
     content = gerar_descricao()
     return (reply_date, content)
 
+def gerar_uuids_vendedores():
+    id_list = list()
+    for i in range(1,30):
+        id_list.append(gerar_uuid())
+    return id_list
+
+def gerar_uuids_produtos():
+    id_list = list()
+    for i in range(1,60):
+        id_list.append(gerar_uuid())
+    return id_list
+
 # Função para gerar 300 registros aleatórios na tabela
-def gerar_registros_aleatorios():
+def gerar_registros_aleatorios(seller_id_list, product_id_list):
     registros = []
     for _ in range(300):
         ticket_id = gerar_uuid()
         creation_date = gerar_data_hora()
         description = gerar_descricao()
         order_id = gerar_uuid()
-        product_id = gerar_uuid()
+        product_id = random.choice(product_id_list)
         replies = {gerar_data_hora(): gerar_descricao() for _ in range(random.randint(1, 5))}
-        seller_id = gerar_uuid()
+        seller_id = random.choice(seller_id_list)
         status = gerar_status()
         title = gerar_titulo()
         type_ = gerar_tipo()
@@ -110,8 +122,10 @@ if __name__ == "__main__":
     cluster, session = conectar_cassandra()
 
     if session:
+        sellerIdList = gerar_uuids_vendedores()
+        productIdList = gerar_uuids_produtos()
         # Gerar registros aleatórios
-        registros_aleatorios = gerar_registros_aleatorios()
+        registros_aleatorios = gerar_registros_aleatorios(sellerIdList, productIdList)
 
         # Inserir registros na tabela
         inserir_registros(session, registros_aleatorios)
