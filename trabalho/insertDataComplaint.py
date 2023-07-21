@@ -54,7 +54,7 @@ def gerar_titulo():
 
 # Função para gerar um tipo aleatório
 def gerar_tipo():
-    return random.choice(['Reclamação', 'Sugestão', 'Elogio', 'Dúvida'])
+    return random.choice(['Reclamação', 'Sugestão', 'Envio Errado', 'Dúvida'])
 
 # Função para gerar um reply aleatório (timestamp e texto)
 def gerar_reply():
