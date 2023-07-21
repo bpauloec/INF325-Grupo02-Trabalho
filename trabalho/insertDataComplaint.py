@@ -38,7 +38,7 @@ def gerar_uuid():
 def gerar_data_hora():
     agora = datetime.now()
     delta = timedelta(days=random.randint(0, 365))
-    return agora - delta
+    return (agora - delta).strftime('%F %T.%f')[:-3]
 
 # Função para gerar uma descrição aleatória
 def gerar_descricao():
